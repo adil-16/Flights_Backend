@@ -10,7 +10,7 @@ app.use(cors());
 app.get("/api/flight-instances", async (req, res) => {
   try {
     const { departureDate, arrivalAirport, departureAirport } = req.query;
-    console.log(arrivalDate, departureDate, arrivalAirport, departureAirport);
+    console.log(departureDate, arrivalAirport, departureAirport);
 
     const response = await axios.get("https://api.oag.com/flight-instances/", {
       params: {
