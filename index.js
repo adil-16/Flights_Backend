@@ -9,8 +9,9 @@ app.use(cors());
 
 app.get("/api/flight-instances", async (req, res) => {
   try {
-    const { departureDate, arrivalAirport, departureAirport } = req.query;
-    console.log(departureDate, arrivalAirport, departureAirport);
+    const { departureDate, arrivalAirport, departureAirport, after } =
+      req.query;
+    console.log(departureDate, arrivalAirport, departureAirport, after);
 
     const response = await axios.get("https://api.oag.com/flight-instances/", {
       params: {
@@ -20,9 +21,10 @@ app.get("/api/flight-instances", async (req, res) => {
         DepartureAirport: departureAirport,
         version: "v2",
         codeType: "IATA,ICAO",
+        After: after,
       },
       headers: {
-        "Subscription-Key": `${process.env.Subscription_Key}`,
+        "Subscription-Key": `4f43fe8a02c14a018d9f367e76be19f7`,
         "Cache-Control": "no-cache",
       },
     });
