@@ -12,7 +12,6 @@ app.get("/api/flight-instances", async (req, res) => {
     const { departureDate, arrivalAirport, departureAirport, after } =
       req.query;
     console.log(departureDate, arrivalAirport, departureAirport, after);
-
     const response = await axios.get("https://api.oag.com/flight-instances/", {
       params: {
         // ArrivalDateTime: arrivalDate,
@@ -24,7 +23,7 @@ app.get("/api/flight-instances", async (req, res) => {
         After: after,
       },
       headers: {
-        "Subscription-Key": `4f43fe8a02c14a018d9f367e76be19f7`,
+        "Subscription-Key": `${process.env.Subscription_Key}`,
         "Cache-Control": "no-cache",
       },
     });
