@@ -12,21 +12,24 @@ app.get("/api/flight-instances", async (req, res) => {
     const { departureDate, arrivalAirport, departureAirport, after } =
       req.query;
     console.log(departureDate, arrivalAirport, departureAirport, after);
-    const response = await axios.get("https://api.oag.com/flight-instances/", {
-      params: {
-        // ArrivalDateTime: arrivalDate,
-        DepartureDateTime: departureDate,
-        ArrivalAirport: arrivalAirport,
-        DepartureAirport: departureAirport,
-        version: "v2",
-        codeType: "IATA,ICAO",
-        After: after,
-      },
-      headers: {
-        "Subscription-Key": `${process.env.Subscription_Key}`,
-        "Cache-Control": "no-cache",
-      },
-    });
+    const response = await axios.get(
+      "https://api.oag.com/flight-connections/",
+      {
+        params: {
+          // ArrivalDateTime: arrivalDate,
+          DepartureDate: departureDate,
+          ArrivalAirport: arrivalAirport,
+          DepartureAirport: departureAirport,
+          version: "v1",
+          // codeType: "IATA,ICAO",
+          After: after,
+        },
+        headers: {
+          "Subscription-Key": `${process.env.Subscription_Key}`,
+          "Cache-Control": "no-cache",
+        },
+      }
+    );
 
     res.json(response.data);
   } catch (error) {
