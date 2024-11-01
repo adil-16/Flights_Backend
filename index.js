@@ -6,29 +6,15 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors());
+app.use(express.json());
 
-app.get("/api/flight-instances", async (req, res) => {
+app.post("/api/flight-instances", async (req, res) => {
   try {
-    const { departureDate, arrivalAirport, departureAirport, after } =
-      req.query;
-    console.log(departureDate, arrivalAirport, departureAirport, after);
-    const response = await axios.get(
-      "https://api.oag.com/flight-connections/",
-      {
-        params: {
-          // ArrivalDateTime: arrivalDate,
-          DepartureDate: departureDate,
-          ArrivalAirport: arrivalAirport,
-          DepartureAirport: departureAirport,
-          version: "v1",
-          // codeType: "IATA,ICAO",
-          After: after,
-        },
-        headers: {
-          "Subscription-Key": `${process.env.Subscription_Key}`,
-          "Cache-Control": "no-cache",
-        },
-      }
+    console.log(req.body);
+    
+    const response = await axios.post(
+      "https://iy3ngebc2lugdyvham664h4it40livij.lambda-url.us-east-1.on.aws/",
+      req.body,
     );
 
     res.json(response.data);
